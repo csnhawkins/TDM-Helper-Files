@@ -2,8 +2,6 @@
 $defaultInstallLocation = "$env:ProgramFiles\Red Gate\Test Data Manager"
 $clisToInstall = @(
     "rganonymize",
-    "rgclone",
-    "rggenerate",
     "rgsubset"
 )
 
@@ -28,7 +26,7 @@ function Find-LatestVersion {
 Function Test-LatestVersion {
     param (
         [Parameter(Position=0,mandatory=$true)]
-        [ValidateSet("rgclone","rganonymize","rgsubset","rggenerate")]
+        [ValidateSet("rganonymize","rgsubset")]
         [string]$cli
     )
 
@@ -42,7 +40,6 @@ Function Test-LatestVersion {
         switch ($cli){
             "rganonymize" { $latestVersionXml = "https://redgate-download.s3.eu-west-1.amazonaws.com/?delimiter=/&prefix=EAP/AnonymizeWin64/" }
             "rgsubset"    { $latestVersionXml = "https://redgate-download.s3.eu-west-1.amazonaws.com/?delimiter=/&prefix=EAP/SubsetterWin64/" }
-            "rggenerate"  { $latestVersionXml = "https://redgate-download.s3.eu-west-1.amazonaws.com/?delimiter=/&prefix=EAP/RGGenerateWin64/" }
         }
 
         $latestVersionData = (Invoke-WebRequest -Uri $latestVersionXml -UseBasicParsing -ErrorAction Stop -TimeoutSec 30).Content
@@ -61,7 +58,7 @@ Function Test-LatestVersion {
 Function Get-ExistingCliLocation {
     param (
         [Parameter(Position=0,mandatory=$true)]
-        [ValidateSet("rgclone","rganonymize","rgsubset","rggenerate")]
+        [ValidateSet("rganonymize","rgsubset")]
         [string]$cli
     )
     $cliExe = (Get-Command $cli -ErrorAction SilentlyContinue).Source
@@ -74,7 +71,7 @@ Function Get-ExistingCliLocation {
 Function Install-TdmCli {
     param (
         [Parameter(Position=0,mandatory=$true)]
-        [ValidateSet("rgclone","rganonymize","rgsubset","rggenerate")]
+        [ValidateSet("rganonymize","rgsubset")]
         [string]$cli,
 
         [string]$installLocation = "$env:ProgramFiles\Red Gate\Test Data Manager",
@@ -95,10 +92,8 @@ Function Install-TdmCli {
 
     # Download URL
     switch ($cli) {
-        "rgclone"     { $downloadUrl = $rgcloneEndpoint + "cloning-api/download/cli/windows-amd64" }
         "rganonymize" { $downloadUrl = "https://download.red-gate.com/EAP/AnonymizeWin64.zip" }
         "rgsubset"    { $downloadUrl = "https://download.red-gate.com/EAP/SubsetterWin64.zip" }
-        "rggenerate"  { $downloadUrl = "https://download.red-gate.com/EAP/RGGenerateWin64.zip" }
     }
 
     $executablePath = Join-Path $installLocation "$cli.exe"
@@ -190,26 +185,5 @@ ForEach ($cli in $clisToInstall) {
         Write-Output "$cli is not available to PATH. Will perform a fresh install to the default location: $defaultInstallLocation"
         $installLocation = $defaultInstallLocation
         $installRequired = $true
-    }
-
-    if ($installRequired) {
-        if ($cli -eq "rgclone") {
-            if ($env:RGCLONE_API_ENDPOINT) {
-                Write-Output "  Installing latest version of rgclone..."
-                Install-TdmCli rgclone -installLocation $installLocation -Verbose
-            }
-            else {
-                Write-Warning "rgclone install/update required, but %RGCLONE_API_ENDPOINT% not provided. Skipping rgclone install."
-            }
-        }
-        else {
-            Write-Output "  Installing latest version of $cli to $installLocation..."
-            if (Install-TdmCli $cli -installLocation $installLocation -Verbose) {
-                Write-Output "  $cli installed successfully"
-            }
-            else {
-                Write-Error "Failed to install $cli"
-            }
-        }
     }
 }
