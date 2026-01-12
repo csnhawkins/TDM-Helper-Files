@@ -1,0 +1,114 @@
+{
+  "jsonSchemaVersion": 1,
+  "howTo": "Example logic can be found below, some of which commented out. Simply remove \\ at the beginning of the attribute name to activate. For example '//excludedTables' becomes 'excludedTables'",
+  "tables": [
+    {
+      "schema": "",
+      "name": "customer",
+      "exclude": false,
+      "columns": [
+        {
+          "name": "Email",
+          "dataset": "CustomEmailAddresses",
+          "deterministic":false
+        }
+      ]
+    }
+  ],
+  "datasets": [
+    {
+      "name": "CompanyNames",
+      "type": "List",
+      "values": [
+        "Redgate Software",
+        "Microsoft",
+        "Google",
+        "Amazon",
+        "Apple",
+        "Facebook",
+        "Twitter"
+      ]
+    },
+    {
+      "name": "CustomEmailAddresses",
+      "type": "Expression",
+      "expression": "$(GivenNames($[FirstName])).$(FamilyNames($[LastName]))@$(Domains)",
+      "description": "Utilize value from masked FirstName and LastName column and concat with value from Domains dataset"
+    },
+    {
+      "name": "Domains",
+      "type": "List",
+      "values": [
+        "gmail.com",
+        "outlook.com",
+        "hotmail.com",
+        "icloud.com",
+        "protonmail.com",
+        "mail.com",
+        "aol.com"
+      ]
+    },
+    {
+      "name": "JobTitles",
+      "type": "List",
+      "values": [
+        "CEO",
+        "CTO",
+        "Director",
+        "Engineer",
+        "Developer",
+        "Designer",
+        "Analyst",
+        "Consultant"
+      ]
+    },
+    {
+      "name": "Websites",
+      "type": "List",
+      "values": [
+        "https://www.example.com",
+        "https://www.test.com",
+        "https://www.google.com"
+      ]
+    }
+  ],
+  "settings": {
+    "dateTimeFormats": [
+      "YYYY-MM-dd",
+      "yyyy-mm-dd HH:mm:ss"
+    ]
+  },
+  "classifications": {
+    "builtIn": {
+      "enabled": [ 
+         "Cities",
+         "Countries",
+         "CreditCardNumbers",
+         "DatesOfBirth",
+         "EmailAddresses",
+         "FullNames",
+         "FamilyNames",
+         "GivenNames",
+         "IPAddresses",
+         "PassportNumbers",
+         "PhoneNumbers",
+         "PostCodes",
+         "StreetAddresses",
+         "StreetAddresses",
+         "UKCounties",
+         "UKNationalInsuranceNumbers",
+         "USSocialSecurityNumbers"
+       ],
+       "disabled": [ 
+        "ZipCodes" 
+      ]
+    },
+    "custom": [
+      {
+        "type": "CompanyNames",
+        "confidence": "High",
+        "condition": "Column.Name contains 'Company' AND Column.Name contains 'Name'"
+      }
+    ]
+  }
+}

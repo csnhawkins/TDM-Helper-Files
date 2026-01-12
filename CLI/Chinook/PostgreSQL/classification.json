@@ -1,0 +1,464 @@
+{
+  "jsonSchemaVersion": 1,
+  "tables": [
+    {
+      "schema": "public",
+      "name": "album",
+      "columns": [
+        {
+          "name": "album_id"
+        },
+        {
+          "name": "title",
+          "maxLength": 160
+        },
+        {
+          "name": "artist_id"
+        }
+      ],
+      "constraints": [
+        {
+          "type": "Unique",
+          "columns": [
+            "artist_id"
+          ]
+        }
+      ]
+    },
+    {
+      "schema": "public",
+      "name": "app_config",
+      "columns": [
+        {
+          "name": "config_id"
+        },
+        {
+          "name": "config_key",
+          "maxLength": 50
+        },
+        {
+          "name": "config_value",
+          "maxLength": 200
+        }
+      ]
+    },
+    {
+      "schema": "public",
+      "name": "artist",
+      "columns": [
+        {
+          "name": "artist_id"
+        },
+        {
+          "name": "name",
+          "maxLength": 120
+        }
+      ]
+    },
+    {
+      "schema": "public",
+      "name": "customer",
+      "exclude": false,
+      "columns": [
+        {
+          "name": "customer_id"
+        },
+        {
+          "name": "first_name",
+          "type": "GivenNames",
+          "maxLength": 40
+        },
+        {
+          "name": "last_name",
+          "type": "FamilyNames",
+          "maxLength": 20
+        },
+        {
+          "name": "company",
+          "maxLength": 80
+        },
+        {
+          "name": "address",
+          "type": "StreetAddresses",
+          "maxLength": 70
+        },
+        {
+          "name": "city",
+          "type": "Cities",
+          "maxLength": 40
+        },
+        {
+          "name": "state",
+          "maxLength": 40
+        },
+        {
+          "name": "country",
+          "type": "Countries",
+          "maxLength": 40
+        },
+        {
+          "name": "postal_code",
+          "type": "PostCodes",
+          "maxLength": 10
+        },
+        {
+          "name": "phone",
+          "type": "PhoneNumbers",
+          "maxLength": 24
+        },
+        {
+          "name": "fax",
+          "type": "PhoneNumbers",
+          "maxLength": 24
+        },
+        {
+          "name": "email",
+          "type": "EmailAddresses",
+          "maxLength": 60
+        },
+        {
+          "name": "support_rep_id"
+        }
+      ],
+      "constraints": [
+        {
+          "type": "Unique",
+          "columns": [
+            "support_rep_id"
+          ]
+        }
+      ]
+    },
+    {
+      "schema": "public",
+      "name": "employee",
+      "columns": [
+        {
+          "name": "employee_id"
+        },
+        {
+          "name": "last_name",
+          "type": "FamilyNames",
+          "maxLength": 20
+        },
+        {
+          "name": "first_name",
+          "type": "GivenNames",
+          "maxLength": 20
+        },
+        {
+          "name": "title",
+          "maxLength": 30
+        },
+        {
+          "name": "reports_to"
+        },
+        {
+          "name": "birth_date",
+          "type": "DatesOfBirth"
+        },
+        {
+          "name": "hire_date"
+        },
+        {
+          "name": "address",
+          "type": "StreetAddresses",
+          "maxLength": 70
+        },
+        {
+          "name": "city",
+          "type": "Cities",
+          "maxLength": 40
+        },
+        {
+          "name": "state",
+          "maxLength": 40
+        },
+        {
+          "name": "country",
+          "type": "Countries",
+          "maxLength": 40
+        },
+        {
+          "name": "postal_code",
+          "type": "PostCodes",
+          "maxLength": 10
+        },
+        {
+          "name": "phone",
+          "type": "PhoneNumbers",
+          "maxLength": 24
+        },
+        {
+          "name": "fax",
+          "type": "PhoneNumbers",
+          "maxLength": 24
+        },
+        {
+          "name": "email",
+          "type": "EmailAddresses",
+          "maxLength": 60
+        }
+      ],
+      "constraints": [
+        {
+          "type": "Unique",
+          "columns": [
+            "reports_to"
+          ]
+        }
+      ]
+    },
+    {
+      "schema": "public",
+      "name": "genre",
+      "columns": [
+        {
+          "name": "genre_id"
+        },
+        {
+          "name": "name",
+          "maxLength": 120
+        }
+      ]
+    },
+    {
+      "schema": "public",
+      "name": "invoice",
+      "columns": [
+        {
+          "name": "invoice_id"
+        },
+        {
+          "name": "customer_id"
+        },
+        {
+          "name": "invoice_date"
+        },
+        {
+          "name": "billing_address",
+          "type": "StreetAddresses",
+          "maxLength": 70
+        },
+        {
+          "name": "billing_city",
+          "type": "Cities",
+          "maxLength": 40
+        },
+        {
+          "name": "billing_state",
+          "maxLength": 40
+        },
+        {
+          "name": "billing_country",
+          "type": "Countries",
+          "maxLength": 40
+        },
+        {
+          "name": "billing_postal_code",
+          "type": "PostCodes",
+          "maxLength": 10
+        },
+        {
+          "name": "total"
+        }
+      ],
+      "constraints": [
+        {
+          "type": "Unique",
+          "columns": [
+            "customer_id"
+          ]
+        }
+      ]
+    },
+    {
+      "schema": "public",
+      "name": "invoice_line",
+      "columns": [
+        {
+          "name": "invoice_line_id"
+        },
+        {
+          "name": "invoice_id"
+        },
+        {
+          "name": "track_id"
+        },
+        {
+          "name": "unit_price"
+        },
+        {
+          "name": "quantity"
+        }
+      ],
+      "constraints": [
+        {
+          "type": "Unique",
+          "columns": [
+            "invoice_id"
+          ]
+        },
+        {
+          "type": "Unique",
+          "columns": [
+            "track_id"
+          ]
+        }
+      ]
+    },
+    {
+      "schema": "public",
+      "name": "media_type",
+      "columns": [
+        {
+          "name": "media_type_id"
+        },
+        {
+          "name": "name",
+          "maxLength": 120
+        }
+      ]
+    },
+    {
+      "schema": "public",
+      "name": "playlist",
+      "columns": [
+        {
+          "name": "playlist_id"
+        },
+        {
+          "name": "name",
+          "maxLength": 120
+        }
+      ]
+    },
+    {
+      "schema": "public",
+      "name": "playlist_track",
+      "columns": [
+        {
+          "name": "playlist_id"
+        },
+        {
+          "name": "track_id"
+        }
+      ],
+      "constraints": [
+        {
+          "type": "Unique",
+          "columns": [
+            "playlist_id"
+          ]
+        },
+        {
+          "type": "Unique",
+          "columns": [
+            "track_id"
+          ]
+        }
+      ]
+    },
+    {
+      "schema": "public",
+      "name": "system_log",
+      "columns": [
+        {
+          "name": "log_id"
+        },
+        {
+          "name": "invoice_id"
+        },
+        {
+          "name": "log_date"
+        },
+        {
+          "name": "log_message",
+          "maxLength": 1000
+        }
+      ]
+    },
+    {
+      "schema": "public",
+      "name": "track",
+      "columns": [
+        {
+          "name": "track_id"
+        },
+        {
+          "name": "name",
+          "maxLength": 200
+        },
+        {
+          "name": "album_id"
+        },
+        {
+          "name": "media_type_id"
+        },
+        {
+          "name": "genre_id"
+        },
+        {
+          "name": "composer",
+          "maxLength": 220
+        },
+        {
+          "name": "milliseconds"
+        },
+        {
+          "name": "bytes"
+        },
+        {
+          "name": "unit_price"
+        }
+      ],
+      "constraints": [
+        {
+          "type": "Unique",
+          "columns": [
+            "album_id"
+          ]
+        },
+        {
+          "type": "Unique",
+          "columns": [
+            "genre_id"
+          ]
+        },
+        {
+          "type": "Unique",
+          "columns": [
+            "media_type_id"
+          ]
+        }
+      ]
+    },
+    {
+      "schema": "public",
+      "name": "track_review",
+      "columns": [
+        {
+          "name": "review_id"
+        },
+        {
+          "name": "track_id"
+        },
+        {
+          "name": "reviewer_name",
+          "type": "FullNames",
+          "maxLength": 100
+        },
+        {
+          "name": "rating"
+        },
+        {
+          "name": "review_text",
+          "maxLength": 1000
+        },
+        {
+          "name": "review_date"
+        }
+      ]
+    }
+  ]
+}

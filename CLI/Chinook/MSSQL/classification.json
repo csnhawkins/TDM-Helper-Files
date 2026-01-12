@@ -1,0 +1,382 @@
+{
+  "jsonSchemaVersion": 1,
+  "tables": [
+    {
+      "schema": "dbo",
+      "name": "Album",
+      "columns": [
+        {
+          "name": "AlbumId"
+        },
+        {
+          "name": "Title",
+          "maxLength": 160
+        },
+        {
+          "name": "ArtistId"
+        }
+      ]
+    },
+    {
+      "schema": "dbo",
+      "name": "AppConfig",
+      "columns": [
+        {
+          "name": "ConfigId"
+        },
+        {
+          "name": "ConfigKey",
+          "maxLength": 50
+        },
+        {
+          "name": "ConfigValue",
+          "maxLength": 200
+        }
+      ]
+    },
+    {
+      "schema": "dbo",
+      "name": "Artist",
+      "columns": [
+        {
+          "name": "ArtistId"
+        },
+        {
+          "name": "Name",
+          "maxLength": 120
+        }
+      ]
+    },
+    {
+      "schema": "dbo",
+      "name": "Customer",
+      "exclude": false,
+      "columns": [
+        {
+          "name": "CustomerId"
+        },
+        {
+          "name": "FirstName",
+          "type": "GivenNames",
+          "maxLength": 40
+        },
+        {
+          "name": "LastName",
+          "type": "FamilyNames",
+          "maxLength": 20
+        },
+        {
+          "name": "Company",
+          "maxLength": 80
+        },
+        {
+          "name": "Address",
+          "type": "StreetAddresses",
+          "maxLength": 70
+        },
+        {
+          "name": "City",
+          "type": "Cities",
+          "exclude": false,
+          "maxLength": 40
+        },
+        {
+          "name": "State",
+          "maxLength": 40
+        },
+        {
+          "name": "Country",
+          "maxLength": 40
+        },
+        {
+          "name": "PostalCode",
+          "type": "PostCodes",
+          "maxLength": 10
+        },
+        {
+          "name": "Phone",
+          "type": "PhoneNumbers",
+          "maxLength": 24
+        },
+        {
+          "name": "Fax",
+          "type": "PhoneNumbers",
+          "maxLength": 24
+        },
+        {
+          "name": "Email",
+          "type": "EmailAddresses",
+          "maxLength": 60
+        },
+        {
+          "name": "SupportRepId"
+        }
+      ]
+    },
+    {
+      "schema": "dbo",
+      "name": "Employee",
+      "columns": [
+        {
+          "name": "EmployeeId"
+        },
+        {
+          "name": "LastName",
+          "type": "FamilyNames",
+          "maxLength": 20
+        },
+        {
+          "name": "FirstName",
+          "type": "GivenNames",
+          "maxLength": 20
+        },
+        {
+          "name": "Title",
+          "maxLength": 30
+        },
+        {
+          "name": "ReportsTo"
+        },
+        {
+          "name": "BirthDate",
+          "type": "DatesOfBirth"
+        },
+        {
+          "name": "HireDate"
+        },
+        {
+          "name": "Address",
+          "type": "StreetAddresses",
+          "maxLength": 70
+        },
+        {
+          "name": "City",
+          "type": "Cities",
+          "maxLength": 40
+        },
+        {
+          "name": "State",
+          "maxLength": 40
+        },
+        {
+          "name": "Country",
+          "maxLength": 40
+        },
+        {
+          "name": "PostalCode",
+          "type": "PostCodes",
+          "maxLength": 10
+        },
+        {
+          "name": "Phone",
+          "type": "PhoneNumbers",
+          "maxLength": 24
+        },
+        {
+          "name": "Fax",
+          "type": "PhoneNumbers",
+          "maxLength": 24
+        },
+        {
+          "name": "Email",
+          "type": "EmailAddresses",
+          "maxLength": 60
+        }
+      ]
+    },
+    {
+      "schema": "dbo",
+      "name": "Genre",
+      "columns": [
+        {
+          "name": "GenreId"
+        },
+        {
+          "name": "Name",
+          "maxLength": 120
+        }
+      ]
+    },
+    {
+      "schema": "dbo",
+      "name": "Invoice",
+      "columns": [
+        {
+          "name": "InvoiceId"
+        },
+        {
+          "name": "CustomerId"
+        },
+        {
+          "name": "InvoiceDate"
+        },
+        {
+          "name": "BillingAddress",
+          "type": "StreetAddresses",
+          "maxLength": 70
+        },
+        {
+          "name": "BillingCity",
+          "type": "Cities",
+          "maxLength": 40
+        },
+        {
+          "name": "BillingState",
+          "maxLength": 40
+        },
+        {
+          "name": "BillingCountry",
+          "maxLength": 40
+        },
+        {
+          "name": "BillingPostalCode",
+          "type": "PostCodes",
+          "maxLength": 10
+        },
+        {
+          "name": "Total"
+        }
+      ]
+    },
+    {
+      "schema": "dbo",
+      "name": "InvoiceLine",
+      "columns": [
+        {
+          "name": "InvoiceLineId"
+        },
+        {
+          "name": "InvoiceId"
+        },
+        {
+          "name": "TrackId"
+        },
+        {
+          "name": "UnitPrice"
+        },
+        {
+          "name": "Quantity"
+        }
+      ]
+    },
+    {
+      "schema": "dbo",
+      "name": "MediaType",
+      "columns": [
+        {
+          "name": "MediaTypeId"
+        },
+        {
+          "name": "Name",
+          "maxLength": 120
+        }
+      ]
+    },
+    {
+      "schema": "dbo",
+      "name": "Playlist",
+      "columns": [
+        {
+          "name": "PlaylistId"
+        },
+        {
+          "name": "Name",
+          "maxLength": 120
+        }
+      ]
+    },
+    {
+      "schema": "dbo",
+      "name": "PlaylistTrack",
+      "columns": [
+        {
+          "name": "PlaylistId"
+        },
+        {
+          "name": "TrackId"
+        }
+      ]
+    },
+    {
+      "schema": "dbo",
+      "name": "SystemLog",
+      "columns": [
+        {
+          "name": "LogId"
+        },
+        {
+          "name": "InvoiceId"
+        },
+        {
+          "name": "LogDate"
+        },
+        {
+          "name": "LogMessage",
+          "maxLength": 1000
+        }
+      ]
+    },
+    {
+      "schema": "dbo",
+      "name": "Track",
+      "columns": [
+        {
+          "name": "TrackId"
+        },
+        {
+          "name": "Name",
+          "maxLength": 200
+        },
+        {
+          "name": "AlbumId"
+        },
+        {
+          "name": "MediaTypeId"
+        },
+        {
+          "name": "GenreId"
+        },
+        {
+          "name": "Composer",
+          "maxLength": 220
+        },
+        {
+          "name": "Milliseconds"
+        },
+        {
+          "name": "Bytes"
+        },
+        {
+          "name": "UnitPrice"
+        }
+      ]
+    },
+    {
+      "schema": "dbo",
+      "name": "TrackReview",
+      "columns": [
+        {
+          "name": "ReviewId"
+        },
+        {
+          "name": "TrackId"
+        },
+        {
+          "name": "ReviewerName",
+          "type": "FullNames",
+          "maxLength": 100
+        },
+        {
+          "name": "Rating"
+        },
+        {
+          "name": "ReviewText",
+          "maxLength": 1000
+        },
+        {
+          "name": "ReviewDate"
+        }
+      ]
+    }
+  ]
+}

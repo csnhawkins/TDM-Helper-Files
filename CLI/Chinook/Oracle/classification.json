@@ -1,0 +1,456 @@
+{
+  "jsonSchemaVersion": 1,
+  "tables": [
+    {
+      "schema": "CHINOOK",
+      "name": "ALBUM",
+      "columns": [
+        {
+          "name": "ALBUMID"
+        },
+        {
+          "name": "TITLE",
+          "maxLength": 160
+        },
+        {
+          "name": "ARTISTID"
+        }
+      ]
+    },
+    {
+      "schema": "CHINOOK",
+      "name": "APPCONFIG",
+      "columns": [
+        {
+          "name": "CONFIGID"
+        },
+        {
+          "name": "CONFIGKEY",
+          "maxLength": 50
+        },
+        {
+          "name": "CONFIGVALUE",
+          "maxLength": 200
+        }
+      ]
+    },
+    {
+      "schema": "CHINOOK",
+      "name": "ARTIST",
+      "columns": [
+        {
+          "name": "ARTISTID"
+        },
+        {
+          "name": "NAME",
+          "maxLength": 120
+        }
+      ]
+    },
+    {
+      "schema": "CHINOOK",
+      "name": "CUSTOMER",
+      "exclude": false,
+      "columns": [
+        {
+          "name": "CUSTOMERID"
+        },
+        {
+          "name": "FIRSTNAME",
+          "type": "GivenNames",
+          "maxLength": 40
+        },
+        {
+          "name": "LASTNAME",
+          "type": "FamilyNames",
+          "maxLength": 20
+        },
+        {
+          "name": "COMPANY",
+          "maxLength": 80
+        },
+        {
+          "name": "ADDRESS",
+          "type": "StreetAddresses",
+          "maxLength": 70
+        },
+        {
+          "name": "CITY",
+          "type": "Cities",
+          "exclude": false,
+          "maxLength": 40
+        },
+        {
+          "name": "STATE",
+          "maxLength": 40
+        },
+        {
+          "name": "COUNTRY",
+          "maxLength": 40
+        },
+        {
+          "name": "POSTALCODE",
+          "type": "PostCodes",
+          "maxLength": 10
+        },
+        {
+          "name": "PHONE",
+          "type": "PhoneNumbers",
+          "maxLength": 24
+        },
+        {
+          "name": "FAX",
+          "type": "PhoneNumbers",
+          "maxLength": 24
+        },
+        {
+          "name": "EMAIL",
+          "type": "EmailAddresses",
+          "maxLength": 60
+        },
+        {
+          "name": "SUPPORTREPID"
+        }
+      ]
+    },
+    {
+      "schema": "CHINOOK",
+      "name": "EMPLOYEE",
+      "columns": [
+        {
+          "name": "EMPLOYEEID"
+        },
+        {
+          "name": "LASTNAME",
+          "type": "FamilyNames",
+          "maxLength": 20
+        },
+        {
+          "name": "FIRSTNAME",
+          "type": "GivenNames",
+          "maxLength": 20
+        },
+        {
+          "name": "TITLE",
+          "maxLength": 30
+        },
+        {
+          "name": "REPORTSTO"
+        },
+        {
+          "name": "BIRTHDATE",
+          "type": "DatesOfBirth"
+        },
+        {
+          "name": "HIREDATE"
+        },
+        {
+          "name": "ADDRESS",
+          "type": "StreetAddresses",
+          "maxLength": 70
+        },
+        {
+          "name": "CITY",
+          "type": "Cities",
+          "maxLength": 40
+        },
+        {
+          "name": "STATE",
+          "maxLength": 40
+        },
+        {
+          "name": "COUNTRY",
+          "maxLength": 40
+        },
+        {
+          "name": "POSTALCODE",
+          "type": "PostCodes",
+          "maxLength": 10
+        },
+        {
+          "name": "PHONE",
+          "type": "PhoneNumbers",
+          "maxLength": 24
+        },
+        {
+          "name": "FAX",
+          "type": "PhoneNumbers",
+          "maxLength": 24
+        },
+        {
+          "name": "EMAIL",
+          "type": "EmailAddresses",
+          "maxLength": 60
+        }
+      ]
+    },
+    {
+      "schema": "CHINOOK",
+      "name": "GENRE",
+      "columns": [
+        {
+          "name": "GENREID"
+        },
+        {
+          "name": "NAME",
+          "maxLength": 120
+        }
+      ]
+    },
+    {
+      "schema": "CHINOOK",
+      "name": "INVOICE",
+      "columns": [
+        {
+          "name": "INVOICEID"
+        },
+        {
+          "name": "CUSTOMERID"
+        },
+        {
+          "name": "INVOICEDATE"
+        },
+        {
+          "name": "BILLINGADDRESS",
+          "type": "StreetAddresses",
+          "maxLength": 70
+        },
+        {
+          "name": "BILLINGCITY",
+          "type": "Cities",
+          "maxLength": 40
+        },
+        {
+          "name": "BILLINGSTATE",
+          "maxLength": 40
+        },
+        {
+          "name": "BILLINGCOUNTRY",
+          "maxLength": 40
+        },
+        {
+          "name": "BILLINGPOSTALCODE",
+          "type": "PostCodes",
+          "maxLength": 10
+        },
+        {
+          "name": "TOTAL"
+        }
+      ]
+    },
+    {
+      "schema": "CHINOOK",
+      "name": "INVOICELINE",
+      "columns": [
+        {
+          "name": "INVOICELINEID"
+        },
+        {
+          "name": "INVOICEID"
+        },
+        {
+          "name": "TRACKID"
+        },
+        {
+          "name": "UNITPRICE"
+        },
+        {
+          "name": "QUANTITY"
+        }
+      ]
+    },
+    {
+      "schema": "CHINOOK",
+      "name": "MEDIATYPE",
+      "columns": [
+        {
+          "name": "MEDIATYPEID"
+        },
+        {
+          "name": "NAME",
+          "maxLength": 120
+        }
+      ]
+    },
+    {
+      "schema": "CHINOOK",
+      "name": "PLAYLIST",
+      "columns": [
+        {
+          "name": "PLAYLISTID"
+        },
+        {
+          "name": "NAME",
+          "maxLength": 120
+        }
+      ]
+    },
+    {
+      "schema": "CHINOOK",
+      "name": "PLAYLISTTRACK",
+      "columns": [
+        {
+          "name": "PLAYLISTID"
+        },
+        {
+          "name": "TRACKID"
+        }
+      ]
+    },
+    {
+      "schema": "CHINOOK",
+      "name": "SYSTEMLOG",
+      "columns": [
+        {
+          "name": "LOGID"
+        },
+        {
+          "name": "INVOICEID"
+        },
+        {
+          "name": "LOGDATE"
+        },
+        {
+          "name": "LOGMESSAGE",
+          "maxLength": 4000
+        }
+      ]
+    },
+    {
+      "schema": "CHINOOK",
+      "name": "TRACK",
+      "columns": [
+        {
+          "name": "TRACKID"
+        },
+        {
+          "name": "NAME",
+          "maxLength": 200
+        },
+        {
+          "name": "ALBUMID"
+        },
+        {
+          "name": "MEDIATYPEID"
+        },
+        {
+          "name": "GENREID"
+        },
+        {
+          "name": "COMPOSER",
+          "maxLength": 220
+        },
+        {
+          "name": "MILLISECONDS"
+        },
+        {
+          "name": "BYTES"
+        },
+        {
+          "name": "UNITPRICE"
+        }
+      ]
+    },
+    {
+      "schema": "CHINOOK",
+      "name": "TRACKREVIEW",
+      "columns": [
+        {
+          "name": "REVIEWID"
+        },
+        {
+          "name": "TRACKID"
+        },
+        {
+          "name": "REVIEWERNAME",
+          "type": "FullNames",
+          "maxLength": 100
+        },
+        {
+          "name": "RATING"
+        },
+        {
+          "name": "REVIEWTEXT",
+          "maxLength": 1000
+        },
+        {
+          "name": "REVIEWDATE"
+        }
+      ]
+    },
+    {
+      "schema": "UT3",
+      "name": "DBMSPCC_BLOCKS",
+      "columns": [
+        {
+          "name": "RUN_ID"
+        },
+        {
+          "name": "OBJECT_ID"
+        },
+        {
+          "name": "BLOCK"
+        },
+        {
+          "name": "LINE"
+        },
+        {
+          "name": "COL"
+        },
+        {
+          "name": "COVERED"
+        },
+        {
+          "name": "NOT_FEASIBLE"
+        }
+      ]
+    },
+    {
+      "schema": "UT3",
+      "name": "DBMSPCC_RUNS",
+      "columns": [
+        {
+          "name": "RUN_ID"
+        },
+        {
+          "name": "RUN_COMMENT",
+          "maxLength": 4000
+        },
+        {
+          "name": "RUN_OWNER",
+          "maxLength": 128
+        },
+        {
+          "name": "RUN_TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "UT3",
+      "name": "DBMSPCC_UNITS",
+      "columns": [
+        {
+          "name": "RUN_ID"
+        },
+        {
+          "name": "OBJECT_ID"
+        },
+        {
+          "name": "OWNER",
+          "maxLength": 128
+        },
+        {
+          "name": "NAME",
+          "maxLength": 128
+        },
+        {
+          "name": "TYPE",
+          "maxLength": 12
+        },
+        {
+          "name": "LAST_DDL_TIME"
+        }
+      ]
+    }
+  ]
+}

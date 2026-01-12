@@ -1,0 +1,170 @@
+# ===========================
+# Pipeline Name: AzureDevOps-TDM-SubsetAnonymize-Pipeline_Windows.yml
+# Version: 1.0.2
+# Author: Redgate Software Ltd
+# Last Updated: 2025-09-02
+# Last Update Notes: Added runMode parameter to select stages
+# Description: Azure DevOps YAML Pipeline for TDM Subset and Anonymize Automation
+# ===========================
+
+name: Flyway-TDM-Simple-SubsetAnonymize-Pipeline-Windows
+
+parameters:
+  - name: dbEngine
+    displayName: 'Select Database Engine'
+    type: string
+    default: 'SqlServer'
+    values:
+      - SqlServer
+      - MySql
+      - Oracle
+      - PostgreSQL
+
+  - name: runMode
+    displayName: 'What would you like to run?'
+    type: string
+    default: 'All'
+    values:
+      - All
+      - Subset
+      - Anonymize
+
+trigger: none
+# Uncomment and configure triggers if needed:
+#  branches:
+#    include:
+#      - main
+#  paths:
+#    include:
+#      - schema-model/*
+
+pool:
+  name: "$(AGENT_POOL)" # Set when using a self-hosted agent pool
+  # vmImage: "windows-latest" # Uncomment if using Microsoft-hosted agent
+
+variables:
+  WORKING_DIRECTORY: $(System.DefaultWorkingDirectory)
+  system.debug: 'false' # Set true for verbose logging
+
+  ### Library Variable Groups ###
+  group: "ChinookGlobal" # REDGATE_LICENSING_PAT_EMAIL/REDGATE_LICENSING_PAT_TOKEN/AGENT_POOL/DETERMINISTIC_SEED
+
+stages:
+  - stage: Subset
+    displayName: Subset Stage
+    condition: or(eq('${{ parameters.runMode }}', 'All'), eq('${{ parameters.runMode }}', 'Subset'))
+    jobs:
+      - job: Rgsubset
+        displayName: Run Subset
+        variables:
+          - group: "ChinookGlobal"
+          - group: "${{ parameters.dbEngine }}" # Expected Variables: SOURCE_CONN_STRING/TARGET_CONN_STRING
+          - name: DB_ENGINE
+            value: ${{ parameters.dbEngine }}
+          - name: OPTIONS_FILE
+            value: "subset-options.json"
+          - name: OUTPUT_FILE
+            value: "subset_log.json"
+          - name: OUTPUT
+            value: "Human"
+          - name: DRY_RUN
+            value: "false"
+          - name: LOG_LEVEL
+            value: "Verbose"
+          - name: FORCE
+            value: "false"
+        steps:
+          - task: PowerShell@2
+            displayName: 'Rgsubset - Run'
+            inputs:
+              targetType: 'inline'
+              script: |
+                rgsubset run `
+                --database-engine "$(DB_ENGINE)" `
+                --source-connection-string "$(SOURCE_CONN_STRING)" `
+                --target-connection-string "$(TARGET_CONN_STRING)" `
+                --target-database-write-mode "Overwrite" `
+                --options-file "$(WORKING_DIRECTORY)\Pipelines\Configuration_Files\$(DB_ENGINE)\$(OPTIONS_FILE)" `
+                --dry-run "$(DRY_RUN)" `
+                --log-level "$(LOG_LEVEL)" `
+                --output-file "$(WORKING_DIRECTORY)\Pipelines\Configuration_Files\$(DB_ENGINE)\$(OUTPUT_FILE)" `
+                --output "$(OUTPUT)" `
+                --force "$(FORCE)"
+
+      - job: CodeReview
+        displayName: Code Review
+        dependsOn: Rgsubset
+        pool: server
+        steps:
+          - task: ManualValidation@0
+            displayName: 'Review Subset Data Prior To Anonymization'
+            timeoutInMinutes: 4320
+            inputs:
+              notifyUsers: |
+                user@email.com
+                example@example.com
+              instructions: 'Review Chinook_Treated Database'
+
+  - stage: Anonymize
+    displayName: Anonymization Stage
+    condition: or(eq('${{ parameters.runMode }}', 'All'), eq('${{ parameters.runMode }}', 'Anonymize'))
+    jobs:
+      - job: Rganonymize
+        displayName: Run Anonymize
+        variables:
+          - group: "ChinookGlobal"
+          - group: "${{ parameters.dbEngine }}" # Expected Variables: SOURCE_CONN_STRING/TARGET_CONN_STRING
+          - name: DB_ENGINE
+            value: ${{ parameters.dbEngine }}
+          - name: CLASSIFICATION_FILE
+            value: "classification.json"
+          - name: MASKING_FILE
+            value: "maskingjson"
+          - name: OPTIONS_FILE
+            value: "masking-options.json"
+          - name: OUTPUT
+            value: "Json"
+          - name: LOG_LEVEL
+            value: "Verbose"
+        steps:
+          - task: PowerShell@2
+            displayName: 'Classify'
+            inputs:
+              targetType: 'inline'
+              script: |
+                rganonymize classify `
+                --database-engine "$(DB_ENGINE)" `
+                --connection-string "$(TARGET_CONN_STRING)" `
+                --classification-file "$(WORKING_DIRECTORY)\Pipelines\Configuration_Files\$(DB_ENGINE)\$(CLASSIFICATION_FILE)" `
+                --options-file "$(WORKING_DIRECTORY)\Pipelines\Configuration_Files\$(DB_ENGINE)\$(OPTIONS_FILE)" `
+                --output-all-columns `
+                --log-level "$(LOG_LEVEL)" `
+                --log-file "$(WORKING_DIRECTORY)\Pipelines\Configuration_Files\$(DB_ENGINE)\rganonymize-classify_logs.json" `
+                --output "$(OUTPUT)"
+
+          - task: PowerShell@2
+            displayName: 'Map'
+            inputs:
+              targetType: 'inline'
+              script: |
+                rganonymize map `
+                --classification-file "$(WORKING_DIRECTORY)\Pipelines\Configuration_Files\$(DB_ENGINE)\$(CLASSIFICATION_FILE)" `
+                --masking-file "$(WORKING_DIRECTORY)\Pipelines\Configuration_Files\$(DB_ENGINE)\$(MASKING_FILE)" `
+                --options-file "$(WORKING_DIRECTORY)\Pipelines\Configuration_Files\$(DB_ENGINE)\$(OPTIONS_FILE)" `
+                --output "$(OUTPUT)" `
+                --log-file "$(WORKING_DIRECTORY)\Pipelines\Configuration_Files\$(DB_ENGINE)\rganonymize-map_logs.json"
+
+          - task: PowerShell@2
+            displayName: 'Mask'
+            inputs:
+              targetType: 'inline'
+              script: |
+                rganonymize mask `
+                --database-engine "$(DB_ENGINE)" `
+                --connection-string "$(TARGET_CONN_STRING)" `
+                --masking-file "$(WORKING_DIRECTORY)\Pipelines\Configuration_Files\$(DB_ENGINE)\$(MASKING_FILE)" `
+                --options-file "$(WORKING_DIRECTORY)\Pipelines\Configuration_Files\$(DB_ENGINE)\$(OPTIONS_FILE)" `
+                --deterministic-seed "$(DETERMINISTIC_SEED)" `
+                --log-level "$(LOG_LEVEL)" `
+                --output "$(OUTPUT)" `
+                --log-file "$(WORKING_DIRECTORY)\Pipelines\Configuration_Files\$(DB_ENGINE)\rganonymize-mask_logs.json"

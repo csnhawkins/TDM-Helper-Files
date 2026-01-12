@@ -1,0 +1,45 @@
+{
+  "jsonSchemaVersion": 1,
+  "howTo": "Example logic can be found below, some of which commented out. Simply remove \\ at the beginning of the attribute name to activate. For example '//excludedTables' becomes 'excludedTables'",
+  "\\desiredSize": "25%",
+  "includeTablesRowThreshold": 30,
+  "startingTables": [
+    {
+      "table":
+      {
+        "schema": "public",
+        "name": "invoice"
+      },
+      "filterClause": "WHERE invoice_date > DATE '2024-11-29'",
+      "forwardRelationshipsOnly": false
+    }
+  ],
+  "excludedTables": [
+    {
+      "schema": "public",
+      "name": "system_log"
+    }    
+  ],
+  "staticDataTables": [
+    {
+      "schema": "public",
+      "name": "app_config"
+    }
+  ],
+  "manualRelationships": [
+    {
+      "sourceTable": 
+        { 
+          "schema": "public", 
+          "name": "track_review"
+        },
+      "sourceColumns": [ "track_id" ],
+      "targetTable": 
+        { 
+          "schema": "public", 
+          "name": "track" 
+        },
+      "targetColumns": [ "track_id" ]
+     }
+  ]
+}
