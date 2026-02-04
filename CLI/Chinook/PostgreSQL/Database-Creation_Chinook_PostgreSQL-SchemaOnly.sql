@@ -4,12 +4,10 @@
    DB Server: PostgreSql
    Original Author: Luis Rocha (Evolved by Chris Hawkins at Redgate Software Ltd)
    License: https://github.com/lerocha/chinook-database/blob/master/LICENSE.md
-********************************************************************************/
-
-/*******************************************************************************
-   Create Tables
-********************************************************************************/
-CREATE TABLE album
+-------------------------------------------------------------------------------
+   Version: 1.0.0
+   Last Updated: 2026-02-05
+   Update Notes: Added named constraints for all tables
 (
     album_id INT NOT NULL GENERATED ALWAYS AS IDENTITY,
     title VARCHAR(160) NOT NULL,
