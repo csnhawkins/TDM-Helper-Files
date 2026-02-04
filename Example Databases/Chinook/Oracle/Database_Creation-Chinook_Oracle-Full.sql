@@ -144,12 +144,13 @@ CREATE TABLE Track
 );
 
 CREATE TABLE TrackReview (
-    ReviewId NUMBER PRIMARY KEY,
+    ReviewId NUMBER NOT NULL,
     TrackId NUMBER NOT NULL,
     ReviewerName VARCHAR2(100) NOT NULL,
-    Rating NUMBER CHECK (Rating BETWEEN 1 AND 5),
+    Rating NUMBER,
     ReviewText VARCHAR2(1000),
-    ReviewDate DATE NOT NULL
+    ReviewDate DATE NOT NULL,
+    CONSTRAINT CK_TrackReview_Rating CHECK (Rating BETWEEN 1 AND 5)
 );
 
 CREATE SEQUENCE TrackReview_Seq START WITH 1 INCREMENT BY 1;
@@ -166,9 +167,10 @@ END;
 
 -- AppConfig
 CREATE TABLE AppConfig (
-    ConfigId NUMBER PRIMARY KEY,
+    ConfigId NUMBER NOT NULL,
     ConfigKey VARCHAR2(50) NOT NULL,
-    ConfigValue VARCHAR2(200) NOT NULL
+    ConfigValue VARCHAR2(200) NOT NULL,
+    CONSTRAINT PK_AppConfig PRIMARY KEY (ConfigId)
 );
 
 CREATE SEQUENCE AppConfig_Seq START WITH 1 INCREMENT BY 1;
@@ -185,10 +187,11 @@ END;
 
 -- SystemLog table without FK to allow safe subsetting
 CREATE TABLE SystemLog (
-    LogId NUMBER PRIMARY KEY,
+    LogId NUMBER NOT NULL,
     InvoiceId NUMBER NOT NULL, -- logically references Invoice
     LogDate DATE NOT NULL,
-    LogMessage VARCHAR2(4000)
+    LogMessage VARCHAR2(4000),
+    CONSTRAINT PK_SystemLog PRIMARY KEY (LogId)
 );
 
 CREATE SEQUENCE SystemLog_Seq START WITH 1 INCREMENT BY 1;
