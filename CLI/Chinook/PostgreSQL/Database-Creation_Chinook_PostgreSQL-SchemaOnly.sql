@@ -1,3 +1,4 @@
+
 /*******************************************************************************
    Chinook Database 
    Description: Creates and populates the Chinook database.
@@ -8,6 +9,12 @@
    Version: 1.0.0
    Last Updated: 2026-02-05
    Update Notes: Added named constraints for all tables
+********************************************************************************/
+
+/*******************************************************************************
+   Create Tables
+********************************************************************************/
+CREATE TABLE album
 (
     album_id INT NOT NULL GENERATED ALWAYS AS IDENTITY,
     title VARCHAR(160) NOT NULL,
