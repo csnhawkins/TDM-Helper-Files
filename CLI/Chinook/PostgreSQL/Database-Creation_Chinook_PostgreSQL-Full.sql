@@ -161,6 +161,7 @@ CREATE TABLE system_log (
     CONSTRAINT pk_system_log PRIMARY KEY (log_id)
 );
 
+
 /*******************************************************************************
    Create Primary Key Unique Indexes
 ********************************************************************************/
