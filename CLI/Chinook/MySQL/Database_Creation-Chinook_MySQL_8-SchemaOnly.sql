@@ -4,7 +4,7 @@
 --   DB Server: MySQL 8.0+
 --   Original Author: Luis Rocha (Evolved by Chris Hawkins at Redgate Software Ltd)
 --   License: https://github.com/lerocha/chinook-database/blob/master/LICENSE.md
---
+
 --   Version: 1.0.0
 --   Last Updated: 2026-02-05
 --   Update Notes: Added named constraints for all tables
@@ -162,10 +162,10 @@ CREATE TABLE `AppConfig` (
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `SystemLog` (
-    `LogId` INT NOT NULL,
+    `LogId` INT AUTO_INCREMENT NOT NULL,
     `InvoiceId` INT NOT NULL,
-    `LogDate` DATE NOT NULL,
-    `LogMessage` VARCHAR(1000),
+    `LogDate` DATETIME NOT NULL,
+    `LogMessage` LONGTEXT,
     CONSTRAINT `PK_SystemLog` PRIMARY KEY (`LogId`),
     CONSTRAINT `fk_SystemLog_Invoice` FOREIGN KEY (`InvoiceId`)
         REFERENCES `Invoice`(`InvoiceId`)

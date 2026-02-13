@@ -154,13 +154,12 @@ CREATE TABLE app_config (
 
 -- system_log
 CREATE TABLE system_log (
-    log_id INT NOT NULL,
+    log_id SERIAL NOT NULL,
     invoice_id INT NOT NULL REFERENCES invoice(invoice_id),
-    log_date DATE NOT NULL,
-    log_message VARCHAR(1000),
+    log_date TIMESTAMP NOT NULL,
+    log_message TEXT,
     CONSTRAINT pk_system_log PRIMARY KEY (log_id)
 );
-
 
 /*******************************************************************************
    Create Primary Key Unique Indexes
@@ -499,7 +498,6 @@ LEFT JOIN album a ON t.album_id = a.album_id
 LEFT JOIN artist ar ON a.artist_id = ar.artist_id
 LEFT JOIN invoice_line il ON t.track_id = il.track_id
 GROUP BY g.genre_id, g.name;
-
 
 /*******************************************************************************
    Populate Tables

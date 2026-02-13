@@ -137,10 +137,9 @@ CREATE TABLE TrackReview (
     ReviewId INT NOT NULL,               -- unique within this table, but no PK constraint
     TrackId INT NOT NULL,                 -- matches Track.TrackId logically, but no FK constraint
     ReviewerName NVARCHAR(100) NOT NULL,  -- matches Customer's full name logically, no FK
-    Rating INT,
+    Rating INT CHECK (Rating BETWEEN 1 AND 5),
     ReviewText NVARCHAR(1000),
-    ReviewDate DATETIME NOT NULL,
-    CONSTRAINT [CK_TrackReview_Rating] CHECK (Rating BETWEEN 1 AND 5)
+    ReviewDate DATETIME NOT NULL
 );
 
 CREATE TABLE SystemLog (

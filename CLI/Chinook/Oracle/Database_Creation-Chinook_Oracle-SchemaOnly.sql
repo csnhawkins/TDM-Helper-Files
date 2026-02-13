@@ -4,10 +4,6 @@
 --   DB Server: Oracle
 --   Original Author: Luis Rocha (Evolved by Chris Hawkins at Redgate Software Ltd)
 --   License: https://github.com/lerocha/chinook-database/blob/master/LICENSE.md
---
---   Version: 1.0.0
---   Last Updated: 2026-02-05
---   Update Notes: Added named constraints for all tables
 -- ********************************************************************************/
 
 /*******************************************************************************
@@ -154,13 +150,12 @@ CREATE TABLE Track
 );
 
 CREATE TABLE TrackReview (
-    ReviewId NUMBER NOT NULL,
+    ReviewId NUMBER PRIMARY KEY,
     TrackId NUMBER NOT NULL,
     ReviewerName VARCHAR2(100) NOT NULL,
-    Rating NUMBER,
+    Rating NUMBER CHECK (Rating BETWEEN 1 AND 5),
     ReviewText VARCHAR2(1000),
-    ReviewDate DATE NOT NULL,
-    CONSTRAINT CK_TrackReview_Rating CHECK (Rating BETWEEN 1 AND 5)
+    ReviewDate DATE NOT NULL
 );
 
 CREATE SEQUENCE TrackReview_Seq START WITH 1 INCREMENT BY 1;
@@ -177,10 +172,9 @@ END;
 
 -- AppConfig
 CREATE TABLE AppConfig (
-    ConfigId NUMBER NOT NULL,
+    ConfigId NUMBER PRIMARY KEY,
     ConfigKey VARCHAR2(50) NOT NULL,
-    ConfigValue VARCHAR2(200) NOT NULL,
-    CONSTRAINT PK_AppConfig PRIMARY KEY (ConfigId)
+    ConfigValue VARCHAR2(200) NOT NULL
 );
 
 CREATE SEQUENCE AppConfig_Seq START WITH 1 INCREMENT BY 1;
@@ -195,12 +189,12 @@ BEGIN
 END;
 /
 
+-- SystemLog table without FK to allow safe subsetting
 CREATE TABLE SystemLog (
-    LogId NUMBER NOT NULL,
+    LogId NUMBER PRIMARY KEY,
     InvoiceId NUMBER NOT NULL, -- logically references Invoice
     LogDate DATE NOT NULL,
-    LogMessage VARCHAR2(4000),
-    CONSTRAINT PK_SystemLog PRIMARY KEY (LogId)
+    LogMessage CLOB
 );
 
 CREATE SEQUENCE SystemLog_Seq START WITH 1 INCREMENT BY 1;
