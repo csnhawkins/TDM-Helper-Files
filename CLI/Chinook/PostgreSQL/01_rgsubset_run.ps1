@@ -20,14 +20,14 @@ if (-not $scriptDirectory) {
 # Example values
 $DB_ENGINE = "PostgreSQL"
 $SOURCE_CONN_STRING = "Host=Localhost;Port=5432;Database=chinook_fullrestore;User Id=postgres;Password=Redg@te1;" 
-$TARGET_CONN_STRING="Host=Localhost;Port=5432;Database=chinook_treated;User Id=postgres;Password=Redg@te1;"
+$TARGET_CONN_STRING= "Host=Localhost;Port=5432;Database=chinook_treated;User Id=postgres;Password=Redg@te1;"
 $OPTIONS_FILE = "${scriptDirectory}\subset-options.json"
 $OUTPUT_FILE = "${scriptDirectory}\subset_output.json"
 $OUTPUT = "Human" # Human|Json
-# Perform a dry-run with no subsetting applied by turning to true
-$DRY_RUN="false"
+$DRY_RUN= "false" # Perform a dry-run with no subsetting applied by turning to true
 $LOG_LEVEL = "Information"
 $LOG_FILE = "${scriptDirectory}\subset_log.json"
+#$LOG_QUERIES = "true" # Output rgsubset non-sensitive query information to '%LOCALAPPDATA%\Red Gate\Logs\TDM\Subset' (Add --log-queries to command)
 $FORCE = "true" # Force subsetting to run even if the source and target database have schema differences
 
 Write-Host "Running subset for database engine: $DB_ENGINE"
